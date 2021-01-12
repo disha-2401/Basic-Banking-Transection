@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Banking</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!--    <link rel="stylesheet" href="styles.css">-->
+    <link rel="stylesheet" href="{%static 'styles.css' %}" />
+
+
+</head>
+
+<body>
+    <div class="container bg-light ">
+        <h1 class="display-4 text-center  md-1">
+            <a href="{%url 'index' %}" class="logo">  Basic Banking website</a>
+        </h1>
+        <h2 class="display-5 font-weight-light text-center text-primary "> Select User to Transfer </h2>
+
+
+        <h4>from {{sender.firstname}} to
+
+            {{receiver.firstname}}
+       </h4>
+        <!-- <table class="table text-light">
+            <thead class="bg-secondary ">
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Balance</th>
+                    <th scope="col">View</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in context %}
+                <tr class="text-primary">
+                    <th scope="row">{{user.username}}</th>
+                    <td>{{user.firstname}}</td>
+                    <td>{{user.balance}}</td>
+                    <td>
+                        <a href="{%url 'transferBal' user.id senderid %}"> <button type="button"
+                                class="btn btn-warning">
+                                <i class="glyphicon glyphicon-trash"></i> click here to transfer in {{user.firstname}}'s
+                                account
+                            </button></a>
+                    </td>
+                </tr>
+                {% endfor %}
+        </table> -->
+
+
+        <form action="{% url 'transferBal' receiver.id sender.id %}" name="myform" method="POST" role="form">
+						{% csrf_token %}
+						<div class="form-group">
+							<div class="input-group">
+                                <input type="number" name="amount" class="form-control" placeholder="amount to transfer" aria-label="Todo" aria-describedby="add-btn" maxlength="40" required="">
+                            </div>
+						</div>
+ {% for message in messages %}
+
+                    <div class="alert alert-primary">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+
+                        {{ message }}
+
+                    </div>
+            {% endfor %}
+                        <span class="input-group-btn d-flex justify-content-center" align="center">
+                            <button type="submit" class="btn btn-primary col-5" id="add-btn" >Transfer</button>
+                            <button type="button" class="btn btn-primary col-5 ml-3" id="tran" ><a href="{%url 'all_transections' %}" class="text-light">See all Transections</a></button>
+						</span>
+					</form>
+
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
